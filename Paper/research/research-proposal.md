@@ -78,7 +78,11 @@ Despite strong progress, most existing solutions focus on detection with limited
 
 This research can reduce the reliance on manual audits, enable real-time feedback for developers, and prevent significant financial losses due to undetected smart contract flaws. By harnessing the power of LLMs trained on specialized smart contract datasets, the system can offer context-aware suggestions and autonomous mitigation. The framework has the potential for deployment in commercial blockchain security platforms, educational tools, and open-source ecosystems.
 
-## 8. References
+## 8. Summary of Contributions and Limitations
+
+This proposal tackles a major gap in smart contract security: the lack of a fully agentic, closed-loop system capable of detection, scoring, patching, and continuous learning. It introduces a hybrid framework that combines symbolic/static analysis with LLM reasoning and reinforcement learning. However, limitations remain in explainability, compute costs, and generalization to novel vulnerabilities. The proposed system includes mitigation strategies like differential fuzzing, retrieval-augmented generation, and CI/CD-based feedback loops to minimize risks from hallucinated or insecure patches.
+
+## 9. References
 
 1. Luu, L., Chu, D.-H., Olickel, H., Saxena, P., & Hobor, A. (2016). *Making Smart Contracts Smarter*. Proceedings of the ACM SIGSAC Conference on Computer and Communications Security (CCS).
 2. Tsankov, P., Dan, A., Drachsler-Cohen, D., Gervais, A., Buenzli, F., & Vechev, M. (2018). *Securify: Practical Security Analysis of Smart Contracts*. Proceedings of the ACM SIGSAC Conference on Computer and Communications Security (CCS).
@@ -93,3 +97,4 @@ This research can reduce the reliance on manual audits, enable real-time feedbac
 11. Smartify. (2025). *A Multi-Agent Framework for Automated Vulnerability Detection and Repair*. arXiv:2502.18515.
 12. Gervais, A., Zhou, L., et al. (2025). *AI Agent Smart Contract Exploit Generation (A1)*. arXiv:2507.05558.
 13. OpenAI. (2023). *Function Calling and Tool Use in GPT Models*. OpenAI Documentation. https://platform.openai.com/docs/guides/gpt/function-calling
+14. *Author(s) TBD*. (2025). *Agentic AI for Smart Contract Vulnerability Detection and Mitigation*. Unpublished proposal, version July 23 2025.
