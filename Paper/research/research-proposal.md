@@ -21,17 +21,27 @@ Smart contract vulnerabilities such as reentrancy, integer overflows/underflows,
 
 A rapidly growing body of research addresses the detection and mitigation of vulnerabilities in Solidity smart contracts using various AI, ML, and symbolic methods:
 
-- **Luu et al. (2016)** introduced *Oyente*, a symbolic execution tool that detects common vulnerabilities but lacks autonomous remediation capabilities.
-- **Tsankov et al. (2018)** developed *Securify*, a static analysis framework that flags property violations but does not offer adaptive fixes.
-- **Chen et al. (2020)** surveyed the use of AI in blockchain cybersecurity, highlighting anomaly detection promise but noting high false-positive rates and no repair suggestions.
+- **Luu et al. (2016)** introduced *Oyente*, a symbolic execution tool that detects common vulnerabilities but lacks autonomous remediation capabilities. It effectively detects vulnerabilities like reentrancy, timestamp dependence, and transaction-ordering dependence by symbolically analyzing execution paths. However, Oyente does not provide any suggestion for remediating detected issues, and it requires expert interpretation of results, limiting its usability for developers unfamiliar with symbolic analysis.
+
+- **Tsankov et al. (2018)** developed *Securify*, a static analysis framework that flags property violations but does not offer adaptive fixes. It utilizes a Datalog-based engine to infer semantic facts about the contract and checks them against compliance and violation patterns. While effective for flagging certain classes of vulnerabilities, Securify lacks adaptive learning and cannot suggest or validate code-level repairs, making it less helpful in automated or continuous deployment scenarios.
+
+- **Chen et al. (2020)** surveyed the use of AI in blockchain cybersecurity, highlighting anomaly detection promise but noting high false-positive rates and no repair suggestions. The study highlights the potential of machine learning in identifying malicious behaviors in smart contracts, but also notes significant limitations including high false-positive rates, limited explainability, and the absence of actionable repair mechanisms, a gap that agentic AI can potentially bridge.
+
 - **Feng et al. (2023)** proposed an interpretable model using feature selection and deep learning that achieves over 93% detection accuracy across six vulnerability types, with significantly faster training times.
 - A comprehensive survey by **Ozdag (2025)** reviews AI-driven vulnerability detection, covering ML, DL, GNN, and transformer-based techniques, and outlining challenges in interpretability and deployment.
+
 - **Kumar et al. (2022)** examined GPT‑3 for Solidity code generation, laying groundwork for LLM-based code understanding, yet noting that full remediation is not yet realized.
+
 - **SmartLLM (2025)** introduced a custom LLaMA-based auditing agent achieving perfect recall and 70% accuracy by combining retrieval-augmented generation (RAG) and zero-shot prompting.
+
 - **SOChecker (2024)** detects vulnerabilities in StackOverflow code snippets using fine-tuned LLaMA2 and symbolic execution, outperforming GPT-3.5/4 with an F1 score of 68.2%.
+
 - **MDPI‑ApplSci (2023)** employed reinforcement learning (PPO) with contract CFGs to identify unchecked-call vulnerabilities, showing improved stability over DQN.
+
 - **AI-based NFT contract analysis (2025)** used CART and random forests on 16,527 contracts to classify key vulnerabilities such as reentrancy and excessive minting.
+
 - **Smartify (2025)** presented a multi-agent LLM framework for detection and repair in Solidity and Move, illustrating the feasibility of closed-loop patching.
+
 - **A1 exploit-generation agent (2025)** transforms LLMs into autonomous smart contract attackers using domain-specific tools and execution feedback.
 
 Despite strong progress, most existing solutions focus on detection with limited remediation. There is still no fully agentic system that combines detection, scoring, autonomous patching, validation, and continuous learning. This proposal addresses that gap with a reinforcement-driven, closed-loop AI framework.
