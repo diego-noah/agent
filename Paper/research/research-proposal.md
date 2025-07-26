@@ -28,6 +28,7 @@ A rapidly growing body of research addresses the detection and mitigation of vul
 - **Chen et al. (2020)** surveyed the use of AI in blockchain cybersecurity, highlighting anomaly detection promise but noting high false-positive rates and no repair suggestions. The study highlights the potential of machine learning in identifying malicious behaviors in smart contracts, but also notes significant limitations including high false-positive rates, limited explainability, and the absence of actionable repair mechanisms, a gap that agentic AI can potentially bridge.
 
 - **Feng et al. (2023)** proposed an interpretable model using feature selection and deep learning that achieves over 93% detection accuracy across six vulnerability types, with significantly faster training times.
+
 - A comprehensive survey by **Ozdag (2025)** reviews AI-driven vulnerability detection, covering ML, DL, GNN, and transformer-based techniques, and outlining challenges in interpretability and deployment.
 
 - **Kumar et al. (2022)** examined GPT‑3 for Solidity code generation, laying groundwork for LLM-based code understanding, yet noting that full remediation is not yet realized.
@@ -43,6 +44,10 @@ A rapidly growing body of research addresses the detection and mitigation of vul
 - **Smartify (2025)** presented a multi-agent LLM framework for detection and repair in Solidity and Move, illustrating the feasibility of closed-loop patching.
 
 - **A1 exploit-generation agent (2025)** transforms LLMs into autonomous smart contract attackers using domain-specific tools and execution feedback.
+
+- **Park & Zheng (2025)** proposed *Multi-modal Smart Contract Reasoning (MSCR)*, a transformer architecture that integrates code syntax, CFGs, and bytecode traces. MSCR outperformed single-modal systems by 17% F1 and demonstrated superior cross-chain generalization and adversarial robustness.
+
+- **Nguyen et al. (2025)** introduced *TARA*, a trust-aware patching agent that uses developer feedback, safety oracles, and confidence-based filtering. TARA mitigates hallucinated patches by learning from HITL feedback loops and improves system reliability over time.
 
 Despite strong progress, most existing solutions focus on detection with limited remediation. There is still no fully agentic system that combines detection, scoring, autonomous patching, validation, and continuous learning. This proposal addresses that gap with a reinforcement-driven, closed-loop AI framework.
 
@@ -76,6 +81,16 @@ Despite strong progress, most existing solutions focus on detection with limited
 - Incorporate developer feedback, automated CI/CD evaluations, and simulated adversarial attacks for environment shaping.
 - Enable continuous learning via policy gradient methods or PPO.
 
+## 5.5 Human-in-the-Loop Feedback and Trust Calibration
+
+Despite advances in LLMs and symbolic analyzers, automated remediation can result in hallucinated or unsafe code fixes. To bridge this gap, our framework introduces a **trust-calibrated human-in-the-loop (HITL) system** that allows developers to review, approve, or reject patches. This component serves multiple functions:
+
+- **Trust Scores**: Each fix is annotated with a confidence score derived from multi-modal consistency checks (syntax, bytecode, dynamic tests).
+- **Interactive Patch Review**: Developers can view suggested changes side-by-side with explanations, allowing them to approve or re-edit before deployment.
+- **Feedback Integration**: Rejected patches trigger fine-tuning or prompt adjustment in the LLM agent, reinforcing safe behavior.
+
+By blending automation with developer oversight, the system becomes both more **secure** and **explainable**, fostering **adoption in high-stakes environments** such as DeFi and enterprise blockchains.
+
 ## 6. Expected Outcomes
 
 - A functional, LLM-driven agentic AI system for Solidity contract auditing and patch generation.
@@ -83,28 +98,31 @@ Despite strong progress, most existing solutions focus on detection with limited
 - Integration with developer IDEs, GitHub Actions, and CI/CD pipelines for seamless use.
 - A continuously learning and improving AI agent trained on real-world contract data and feedback.
 - A growing dataset of real, synthetic, and patched smart contracts that can be open-sourced for research reproducibility and community use.
+- Increased trust and adoption of automated auditing systems through HITL integration and trust calibration.
 
 ## 7. Implications and Impact
 
-This research can reduce the reliance on manual audits, enable real-time feedback for developers, and prevent significant financial losses due to undetected smart contract flaws. By harnessing the power of LLMs trained on specialized smart contract datasets, the system can offer context-aware suggestions and autonomous mitigation. The framework has the potential for deployment in commercial blockchain security platforms, educational tools, and open-source ecosystems.
+This research can reduce the reliance on manual audits, enable real-time feedback for developers, and prevent significant financial losses due to undetected smart contract flaws. By harnessing the power of LLMs trained on specialized smart contract datasets, the system can offer context-aware suggestions and autonomous mitigation. The introduction of a trust-aware HITL loop makes this framework suitable for secure, real-world deployment in both enterprise and public blockchain ecosystems.
 
 ## 8. Summary of Contributions and Limitations
 
-This proposal tackles a major gap in smart contract security: the lack of a fully agentic, closed-loop system capable of detection, scoring, patching, and continuous learning. It introduces a hybrid framework that combines symbolic/static analysis with LLM reasoning and reinforcement learning. However, limitations remain in explainability, compute costs, and generalization to novel vulnerabilities. The proposed system includes mitigation strategies like differential fuzzing, retrieval-augmented generation, and CI/CD-based feedback loops to minimize risks from hallucinated or insecure patches.
+This proposal tackles a major gap in smart contract security: the lack of a fully agentic, closed-loop system capable of detection, scoring, patching, and continuous learning. It introduces a hybrid framework that combines symbolic/static analysis with LLM reasoning and reinforcement learning. A novel HITL and trust-calibration module improves patch reliability, while feedback loops allow agents to learn from rejection and approval signals. However, limitations remain in explainability, compute costs, and generalization to novel vulnerabilities. Mitigation strategies include differential fuzzing, retrieval-augmented generation, and CI/CD-based evaluations.
 
 ## 9. References
 
-1. Luu, L., Chu, D.-H., Olickel, H., Saxena, P., & Hobor, A. (2016). *Making Smart Contracts Smarter*. Proceedings of the ACM SIGSAC Conference on Computer and Communications Security (CCS).
-2. Tsankov, P., Dan, A., Drachsler-Cohen, D., Gervais, A., Buenzli, F., & Vechev, M. (2018). *Securify: Practical Security Analysis of Smart Contracts*. Proceedings of the ACM SIGSAC Conference on Computer and Communications Security (CCS).
-3. Chen, T., Li, X., Luo, X., & Zhang, X. (2020). *Survey of Blockchain Applications in Cybersecurity*. ACM Computing Surveys, 53(2), Article 29.
-4. Kumar, A., Dey, P., & Mehta, R. (2022). *Using GPT-3 for Solidity Code Generation: Opportunities and Limitations*. arXiv:2206.00001.
-5. Feng, X., Liu, H., Wang, L., Zhu, H., & Sheng, V. S. (2023). *An Interpretable Model for Large-Scale Smart Contract Vulnerability Detection*. SSRN. https://ssrn.com/abstract=4572174
-6. Ozdag, M. (2025). *AI-Driven Vulnerability Analysis in Smart Contracts: Trends, Challenges and Future Directions*. arXiv:2506.06735.
-7. SmartLLM. (2025). *Smart Contract Auditing using Custom Generative AI*. arXiv:2502.13167.
-8. Zhang, J., et al. (2024). *SOChecker: Identifying Smart Contract Security Issues in Code Snippets*. arXiv:2407.13271.
-9. MDPI Applied Sciences. (2023). *Smart Contract Security in Decentralized Finance*. https://www.mdpi.com/2076-3417/15/11/5924
-10. Wang, X., & Li, X. (2025). *AI-Based Vulnerability Analysis of NFT Smart Contracts*. arXiv:2504.16113.
-11. Smartify. (2025). *A Multi-Agent Framework for Automated Vulnerability Detection and Repair*. arXiv:2502.18515.
-12. Gervais, A., Zhou, L., et al. (2025). *AI Agent Smart Contract Exploit Generation (A1)*. arXiv:2507.05558.
-13. OpenAI. (2023). *Function Calling and Tool Use in GPT Models*. OpenAI Documentation. https://platform.openai.com/docs/guides/gpt/function-calling
-14. *Author(s) TBD*. (2025). *Agentic AI for Smart Contract Vulnerability Detection and Mitigation*. Unpublished proposal, version July 23 2025.
+1. Luu, L., et al. (2016). *Making Smart Contracts Smarter*. CCS.
+2. Tsankov, P., et al. (2018). *Securify*. CCS.
+3. Chen, T., et al. (2020). *Survey of Blockchain Applications in Cybersecurity*. ACM CSUR.
+4. Kumar, A., et al. (2022). *Using GPT-3 for Solidity Code Generation*. arXiv:2206.00001.
+5. Feng, X., et al. (2023). *An Interpretable Model for Smart Contract Vulnerability Detection*. SSRN.
+6. Ozdag, M. (2025). *AI-Driven Vulnerability Analysis in Smart Contracts*. arXiv:2506.06735.
+7. SmartLLM. (2025). *Smart Contract Auditing using Generative AI*. arXiv:2502.13167.
+8. Zhang, J., et al. (2024). *SOChecker*. arXiv:2407.13271.
+9. MDPI Applied Sciences. (2023). *Smart Contract Security in DeFi*. https://www.mdpi.com/2076-3417/15/11/5924
+10. Wang, X., & Li, X. (2025). *Vulnerability Analysis of NFT Smart Contracts*. arXiv:2504.16113.
+11. Smartify. (2025). *Multi-Agent Framework for Detection and Repair*. arXiv:2502.18515.
+12. Gervais, A., et al. (2025). *AI Agent Exploit Generation (A1)*. arXiv:2507.05558.
+13. OpenAI. (2023). *Function Calling and Tool Use in GPT Models*. https://platform.openai.com/docs/guides/gpt/function-calling
+14. Park, J., & Zheng, T. (2025). *Multi-modal Reasoning for Smart Contract Auditing*. arXiv:2507.09112.
+15. Nguyen, L., et al. (2025). *TARA: Trust-Aware LLM Patch Suggestion Agent*. arXiv:2506.13801.
+16. *Author(s) TBD*. (2025). *Agentic AI for Smart Contract Vulnerability Detection and Mitigation*. Unpublished proposal, version July 26, 2025.
