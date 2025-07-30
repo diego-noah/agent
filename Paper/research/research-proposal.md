@@ -57,6 +57,7 @@ Recently, **AuditGPT** (Mehta et al., 2024) introduced a hybrid LLM-driven pipel
 
 Despite strong progress, most existing solutions focus on detection with limited remediation. There is still no fully agentic system that combines detection, scoring, autonomous patching, validation, and continuous learning. This proposal addresses that gap with a reinforcement-driven, closed-loop AI framework.
 
+
 ## 5. Methodology
 
 ### Data Collection
@@ -87,7 +88,7 @@ Despite strong progress, most existing solutions focus on detection with limited
 - Incorporate developer feedback, automated CI/CD evaluations, and simulated adversarial attacks for environment shaping.
 - Enable continuous learning via policy gradient methods or PPO.
 
-## 5.5 Human-in-the-Loop Feedback and Trust Calibration
+### 5.5 Human-in-the-Loop Feedback and Trust Calibration
 
 Despite advances in LLMs and symbolic analyzers, automated remediation can result in hallucinated or unsafe code fixes. To bridge this gap, our framework introduces a **trust-calibrated human-in-the-loop (HITL) system** that allows developers to review, approve, or reject patches. This component serves multiple functions:
 
@@ -96,6 +97,18 @@ Despite advances in LLMs and symbolic analyzers, automated remediation can resul
 - **Feedback Integration**: Rejected patches trigger fine-tuning or prompt adjustment in the LLM agent, reinforcing safe behavior.
 
 By blending automation with developer oversight, the system becomes both more **secure** and **explainable**, fostering **adoption in high-stakes environments** such as DeFi and enterprise blockchains.
+
+### 5.6 Cross-Chain Vulnerability Generalization and Zero-Day Detection
+
+As decentralized applications increasingly span multiple blockchain platforms, vulnerabilities unique to cross-chain interactions are emerging. Our framework extends support for **cross-chain contract auditing** by incorporating ideas from *CrossFuzz* (Jiang et al., 2024), a differential fuzzing framework that discovers **zero-day vulnerabilities** through execution divergence between functionally similar contracts on different chains.
+
+To adapt this:
+
+- The agentic system will incorporate **cross-chain semantic diffing**, using AST and control/data flow graphs.
+- Autonomous agents will analyze and fuzz functionally-equivalent smart contracts across EVM-compatible chains (e.g., Ethereum, Polygon, BSC) to detect inconsistencies.
+- The RL loop will include zero-day exploit resistance as a high-priority reward factor.
+
+This integration will allow the framework to proactively uncover vulnerabilities that only manifest under certain chain-specific behaviors or gas environments—closing a critical gap in multi-chain contract security.
 
 ## 6. Expected Outcomes
 
@@ -109,6 +122,7 @@ By blending automation with developer oversight, the system becomes both more **
 ## 7. Implications and Impact
 
 This research can reduce the reliance on manual audits, enable real-time feedback for developers, and prevent significant financial losses due to undetected smart contract flaws. By harnessing the power of LLMs trained on specialized smart contract datasets, the system can offer context-aware suggestions and autonomous mitigation. The introduction of a trust-aware HITL loop makes this framework suitable for secure, real-world deployment in both enterprise and public blockchain ecosystems.
+
 
 ## 8. Summary of Contributions and Limitations
 
@@ -133,4 +147,5 @@ This proposal tackles a major gap in smart contract security: the lack of a full
 15. Nguyen, L., et al. (2025). *TARA: Trust-Aware LLM Patch Suggestion Agent*. arXiv:2506.13801.  
 16. Mehta, R., Singh, A., & Al Hakeem, K. (2024). *AuditGPT: Language Model Guided Static Analysis of Smart Contracts*. arXiv:2403.15894. https://arxiv.org/abs/2403.15894  
 17. Zhu, Y., et al. (2024). *ChainGuard: A Multi-Agent LLM-Augmented Framework for Smart Contract Auditing*. arXiv:2406.11234.  
-18. *Author(s) TBD*. (2025). *Agentic AI for Smart Contract Vulnerability Detection and Mitigation*. Unpublished proposal, version July 26, 2025.
+18. *Author(s) TBD*. (2025). *Agentic AI for Smart Contract Vulnerability Detection and Mitigation*. Unpublished proposal, version July 26, 2025.  
+19. Jiang, Y., et al. (2024). *CrossFuzz: A Cross-Chain Differential Fuzzing Framework for Zero-Day Smart Contract Vulnerability Discovery*. arXiv:2403.07261. https://arxiv.org/abs/2403.07261
