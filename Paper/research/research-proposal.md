@@ -204,6 +204,75 @@ The proposed integration complements earlier sections on reinforcement learning 
 
 Even with thorough pre-deployment auditing and autonomous patch generation, the evolving nature of blockchain threats means that vulnerabilities can still be discovered—or exploited—post-deployment. To address this, our framework incorporates an **On-Chain Real-Time Monitoring and Incident Response (ORMIR)** subsystem, enabling continuous security assurance for deployed contracts.
 
+
+
+## 5.12 MEV-Aware Vulnerability Detection and Protection Framework
+
+Maximal Extractable Value (MEV) has emerged as one of the most critical and actively exploited attack vectors in the current smart contract landscape. MEV refers to the maximum value that can be extracted from a blockchain by reordering, inserting, or censoring transactions within a block. Recent data from the European Securities and Markets Authority (ESMA) indicates MEV-Boost adoption at **85–95%** on Ethereum as of **July 2025**, with estimated MEV revenues totaling **USD 1.26 billion** since September 2022.
+
+Our agentic AI framework incorporates MEV-aware vulnerability detection that addresses both traditional and evolving MEV attack patterns:
+
+### MEV Attack Pattern Recognition
+- **Sandwich Attack Detection**: The framework identifies contracts vulnerable to front-running and back-running combinations where attackers manipulate transaction order to profit from price slippage.
+- **Arbitrage Opportunity Analysis**: Detection of cross-DEX arbitrage vulnerabilities that create extractable value through price differentials.
+- **Liquidation MEV Assessment**: Analysis of lending protocol liquidation mechanisms that may be exploited for excessive MEV extraction.
+
+### Formal MEV Security Modeling
+Building on *Bartoletti and Zunino's* theoretical foundation, our framework implements formal MEV security proofs using their abstract blockchain model. The system defines:
+- **MEV Security Properties**: Contracts are analyzed against formal definitions of "bad MEV" that exclude legitimate arbitrage from malicious extraction.
+- **Universal MEV Bounds**: Implementation of *Proposition 8* from Bartoletti et al., ensuring that MEV can be computed from finite mempool subsets for practical analysis.
+- **Mempool-Independent Security**: Verification that contract functionality remains secure even when mempool knowledge is exploited by attackers.
+
+### Cryptographic MEV Protection Integration
+The framework integrates advanced MEV protection mechanisms such as **FIRST (FrontrunnIng Resistant Smart ConTracts)**, which uses:
+- **Verifiable Delay Functions (VDFs)**: Implementation of cryptographic delays that prevent frontrunning by ensuring temporal ordering constraints.
+- **Aggregate Signature Verification**: Multi-verifier systems that validate transaction authenticity and prevent malicious reordering.
+- **Temporal Authentication**: Time-weighted mechanisms that require sustained asset presence to prevent flash-loan-based MEV attacks.
+
+Experimental validation using Ethereum and Binance Smart Chain data shows FIRST achieving frontrunning probability of approximately **0.00004 (0.004%)** on Ethereum and **0%** on Binance Smart Chain, demonstrating the effectiveness of cryptographic approaches to MEV mitigation.
+
+---
+
+## 5.13 DAO Governance Security and Whale Attack Prevention
+
+Decentralized Autonomous Organization (DAO) governance attacks represent a critical current threat, with billions of dollars in treasury funds at risk from sophisticated manipulation strategies. Recent research indicates that fewer than **10 addresses** control most major DAOs, with community delegate vote shares consistently below **10%** in platforms like **Compound**, **Fei**, and **Uniswap**.
+
+### Governance Attack Vector Analysis
+Our framework addresses the primary attack vectors identified in current DAO security research:
+
+#### Flash Loan Governance Attacks
+- **Temporal Voting Power Acquisition**: Detection of contracts vulnerable to flash loan attacks where attackers borrow governance tokens to gain temporary voting control.
+- **Proposal Manipulation**: Analysis of governance mechanisms that allow malicious proposals to be submitted and executed within single transaction blocks.
+- **Oracle-Based Manipulation**: Integration of cross-protocol analysis to detect indirect flash loan attacks that manipulate collateral valuations rather than direct voting.
+
+#### Whale Concentration Risk Assessment
+- **Token Distribution Analysis**: Automated assessment of governance token concentration using Gini coefficients and other inequality measures.
+- **Voting Power Centralization Detection**: Identification of governance systems where small numbers of addresses control disproportionate influence.
+- **Sybil Attack Vulnerability**: Detection of governance systems susceptible to multi-account manipulation by single actors.
+
+### Advanced Governance Security Mechanisms
+
+#### Time-Weighted Snapshot Framework
+Building on recent research by *Wang et al.*, the framework implements time-weighted governance that:
+- **Mitigates Flash Loan Attacks**: Uses continuous snapshot mechanisms with weighted historical presence rather than point-in-time token holdings.
+- **Balances Security and Liquidity**: Implements adjustable weight functions that can shift between security-focused (older blocks weighted higher) and liquidity-focused configurations.
+- **Prevents Oracle Manipulation**: Distributes voting weights across multiple blocks to make indirect attacks economically infeasible.
+
+#### Quadratic Voting with Vote Escrow Integration
+The framework incorporates anti-collusion mechanisms based on recent research that combines:
+- **Quadratic Voting Resistance**: Implementation of voting systems where voting power increases sub-linearly with token holdings to reduce whale influence.
+- **Vote Escrow Temporal Locks**: Integration of time-locked governance tokens that require long-term commitment, preventing both flash loans and short-term manipulation.
+- **Collusion-Resistant Design**: Mathematical frameworks that make coordinated manipulation attacks economically prohibitive.
+
+### Case Study Integration
+The framework learns from documented attacks including:
+- **Compound "Humpy" Incident (2024)**: Analysis of how 499,000 COMP tokens ($25M) were used to pass controversial proposals benefiting specific whale interests.
+- **Beanstalk Flash Loan Attack (2022)**: Implementation of defenses against the $181M flash loan attack that gained majority stake through borrowed tokens.
+- **Mochi Inu Curve Attack**: Protection against sophisticated multi-protocol manipulation attacks targeting governance and liquidity simultaneously.
+
+This comprehensive DAO governance security module ensures that agentic AI systems can detect and prevent the full spectrum of governance attacks currently threatening decentralized organizations with billions in assets under management.
+
+
 ### Core Components
 
 - **Blockchain Event Stream Analysis**  
@@ -276,3 +345,12 @@ This proposal tackles a major gap in smart contract security: the lack of a full
 26. Rahman, A., Nuhan, A., & Mozumder, B. (2025). *OpenAuditBenchmark: A Dataset for Agentic AI in Smart Contract Vulnerability Detection, Prioritization, and Patch Suggestion*. arXiv:2507.15812. https://arxiv.org/abs/2507.15812
 27. Patel, R., & Morgan, D. (2025). *Cooperative Adversarial Agents for Robust Cybersecurity in Decentralized Systems*. IEEE Transactions on Information Forensics and Security, 20(8), 1452–1468. https://doi.org/10.1109/TIFS.2025.3265012
 28. Liu, H., Chen, Z., & Yu, J. (2024). *Real-Time Smart Contract Threat Monitoring and Autonomous Incident Response on Public Blockchains*. In Proceedings of the IEEE International Conference on Blockchain and Cryptocurrency (ICBC), pp. 102–113. https://doi.org/10.1109/ICBC2024.2024.00112
+29. Bartoletti, M., & Zunino, R. (2025). *A theoretical basis for MEV*. arXiv:2302.02154v5. [https://arxiv.org/abs/2302.02154](https://arxiv.org/abs/2302.02154)
+30. Sariboz, E., Panwar, G., Vishwanathan, R., & Misra, S. (2023). *FIRST: FrontrunnIng Resistant Smart ConTracts*. arXiv:2204.00955v4. [https://arxiv.org/abs/2204.00955](https://arxiv.org/abs/2204.00955)
+31. European Securities and Markets Authority (2025). *Maximal Extractable Value Implications for crypto markets*. ESMA TRV Risk Analysis, July 1, 2025. [https://www.esma.europa.eu/sites/default/files/2025-07/ESMA50-481369926-29744_Maximal_Extractable_Value_Implications_for_crypto_markets.pdf](https://www.esma.europa.eu/sites/default/files/2025-07/ESMA50-481369926-29744_Maximal_Extractable_Value_Implications_for_crypto_markets.pdf)
+32. Wang, Z., Pu, F., Cheung, V., & Hao, R. (2025). *A Time-Weighted Snapshot Framework for DAO Governance Voting*. arXiv:2505.00888v2. [https://arxiv.org/abs/2505.00888](https://arxiv.org/abs/2505.00888)
+33. Anonymous Author (2025). *A Review of DAO Governance: Recent Literature and Emerging Trends*. SSRN Electronic Journal. [https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5074046](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5074046)
+34. AI-Enhanced DAO Security Workshop Organizing Committee (2025). *1st AI-Enhanced DAO Security (AIDAOS'25) Workshop*. MEDES 2025 Conference Proceedings. [https://conferences.sigappfr.org/medes2025/1st-ai-enhanced-dao-security-aidaos25/](https://conferences.sigappfr.org/medes2025/1st-ai-enhanced-dao-security-aidaos25/)
+35. Gil, A. (2025). *Web3 DAO Governance Hacks: Avoiding Common Protocol Pitfalls*. LinkedIn Professional Insights, February 15, 2025. [https://www.linkedin.com/pulse/web3-dao-governance-hacks-avoiding-common-protocol-pitfalls-gil-7afae](https://www.linkedin.com/pulse/web3-dao-governance-hacks-avoiding-common-protocol-pitfalls-gil-7afae)
+36. Nakamura, S., & Yamamoto, H. (2024). *DAO voting mechanism resistant to whale and collusion problems*. Frontiers in Blockchain, 7, 1405516. [https://doi.org/10.3389/fbloc.2024.1405516](https://doi.org/10.3389/fbloc.2024.1405516)
+37. Martinez-Rodriguez, C. (2024). *Whales, Sybil attacks and low trust: Can DAOs avoid centralization pitfalls*. Cointelegraph, March 11, 2024. [https://cointelegraph.com/news/whales-sybil-attacks-and-low-trust-can-daos-avoid-centralization-pitfalls](https://cointelegraph.com/news/whales-sybil-attacks-and-low-trust-can-daos-avoid-centralization-pitfalls)
