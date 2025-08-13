@@ -200,40 +200,9 @@ This multi-agent approach enables **layered defense**: if a detection agent miss
 ### Relevance to Agentic AI in Blockchain Security
 The proposed integration complements earlier sections on reinforcement learning (Section 5.4) and cross-chain auditing (Section 5.6) by enabling distributed, fault-tolerant decision-making. It also builds on HITL (Section 5.5), as human reviewers can interact with aggregated multi-agent consensus reports rather than single-agent outputs, improving interpretability and trust.
 
-## 5.11 On-Chain Real-Time Monitoring and Incident Response
-
-Even with thorough pre-deployment auditing and autonomous patch generation, the evolving nature of blockchain threats means that vulnerabilities can still be discovered—or exploited—post-deployment. To address this, our framework incorporates an **On-Chain Real-Time Monitoring and Incident Response (ORMIR)** subsystem, enabling continuous security assurance for deployed contracts.
-
-
-
-## 5.12 MEV-Aware Vulnerability Detection and Protection Framework
-
-Maximal Extractable Value (MEV) has emerged as one of the most critical and actively exploited attack vectors in the current smart contract landscape. MEV refers to the maximum value that can be extracted from a blockchain by reordering, inserting, or censoring transactions within a block. Recent data from the European Securities and Markets Authority (ESMA) indicates MEV-Boost adoption at **85–95%** on Ethereum as of **July 2025**, with estimated MEV revenues totaling **USD 1.26 billion** since September 2022.
-
-Our agentic AI framework incorporates MEV-aware vulnerability detection that addresses both traditional and evolving MEV attack patterns:
-
-### MEV Attack Pattern Recognition
-- **Sandwich Attack Detection**: The framework identifies contracts vulnerable to front-running and back-running combinations where attackers manipulate transaction order to profit from price slippage.
-- **Arbitrage Opportunity Analysis**: Detection of cross-DEX arbitrage vulnerabilities that create extractable value through price differentials.
-- **Liquidation MEV Assessment**: Analysis of lending protocol liquidation mechanisms that may be exploited for excessive MEV extraction.
-
-### Formal MEV Security Modeling
-Building on *Bartoletti and Zunino's* theoretical foundation, our framework implements formal MEV security proofs using their abstract blockchain model. The system defines:
-- **MEV Security Properties**: Contracts are analyzed against formal definitions of "bad MEV" that exclude legitimate arbitrage from malicious extraction.
-- **Universal MEV Bounds**: Implementation of *Proposition 8* from Bartoletti et al., ensuring that MEV can be computed from finite mempool subsets for practical analysis.
-- **Mempool-Independent Security**: Verification that contract functionality remains secure even when mempool knowledge is exploited by attackers.
-
-### Cryptographic MEV Protection Integration
-The framework integrates advanced MEV protection mechanisms such as **FIRST (FrontrunnIng Resistant Smart ConTracts)**, which uses:
-- **Verifiable Delay Functions (VDFs)**: Implementation of cryptographic delays that prevent frontrunning by ensuring temporal ordering constraints.
-- **Aggregate Signature Verification**: Multi-verifier systems that validate transaction authenticity and prevent malicious reordering.
-- **Temporal Authentication**: Time-weighted mechanisms that require sustained asset presence to prevent flash-loan-based MEV attacks.
-
-Experimental validation using Ethereum and Binance Smart Chain data shows FIRST achieving frontrunning probability of approximately **0.00004 (0.004%)** on Ethereum and **0%** on Binance Smart Chain, demonstrating the effectiveness of cryptographic approaches to MEV mitigation.
-
 ---
 
-## 5.13 DAO Governance Security and Whale Attack Prevention
+## 5.11 DAO Governance Security and Whale Attack Prevention
 
 Decentralized Autonomous Organization (DAO) governance attacks represent a critical current threat, with billions of dollars in treasury funds at risk from sophisticated manipulation strategies. Recent research indicates that fewer than **10 addresses** control most major DAOs, with community delegate vote shares consistently below **10%** in platforms like **Compound**, **Fei**, and **Uniswap**.
 
@@ -244,13 +213,6 @@ Our framework addresses the primary attack vectors identified in current DAO sec
 - **Temporal Voting Power Acquisition**: Detection of contracts vulnerable to flash loan attacks where attackers borrow governance tokens to gain temporary voting control.
 - **Proposal Manipulation**: Analysis of governance mechanisms that allow malicious proposals to be submitted and executed within single transaction blocks.
 - **Oracle-Based Manipulation**: Integration of cross-protocol analysis to detect indirect flash loan attacks that manipulate collateral valuations rather than direct voting.
-
-#### Whale Concentration Risk Assessment
-- **Token Distribution Analysis**: Automated assessment of governance token concentration using Gini coefficients and other inequality measures.
-- **Voting Power Centralization Detection**: Identification of governance systems where small numbers of addresses control disproportionate influence.
-- **Sybil Attack Vulnerability**: Detection of governance systems susceptible to multi-account manipulation by single actors.
-
-### Advanced Governance Security Mechanisms
 
 #### Time-Weighted Snapshot Framework
 Building on recent research by *Wang et al.*, the framework implements time-weighted governance that:
