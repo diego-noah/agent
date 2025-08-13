@@ -200,9 +200,40 @@ This multi-agent approach enables **layered defense**: if a detection agent miss
 ### Relevance to Agentic AI in Blockchain Security
 The proposed integration complements earlier sections on reinforcement learning (Section 5.4) and cross-chain auditing (Section 5.6) by enabling distributed, fault-tolerant decision-making. It also builds on HITL (Section 5.5), as human reviewers can interact with aggregated multi-agent consensus reports rather than single-agent outputs, improving interpretability and trust.
 
-## 5.11 On-Chain Real-Time Monitoring and Incident Response
+---
 
-Even with thorough pre-deployment auditing and autonomous patch generation, the evolving nature of blockchain threats means that vulnerabilities can still be discovered—or exploited—post-deployment. To address this, our framework incorporates an **On-Chain Real-Time Monitoring and Incident Response (ORMIR)** subsystem, enabling continuous security assurance for deployed contracts.
+## 5.11 DAO Governance Security and Whale Attack Prevention
+
+Decentralized Autonomous Organization (DAO) governance attacks represent a critical current threat, with billions of dollars in treasury funds at risk from sophisticated manipulation strategies. Recent research indicates that fewer than **10 addresses** control most major DAOs, with community delegate vote shares consistently below **10%** in platforms like **Compound**, **Fei**, and **Uniswap**.
+
+### Governance Attack Vector Analysis
+Our framework addresses the primary attack vectors identified in current DAO security research:
+
+#### Flash Loan Governance Attacks
+- **Temporal Voting Power Acquisition**: Detection of contracts vulnerable to flash loan attacks where attackers borrow governance tokens to gain temporary voting control.
+- **Proposal Manipulation**: Analysis of governance mechanisms that allow malicious proposals to be submitted and executed within single transaction blocks.
+- **Oracle-Based Manipulation**: Integration of cross-protocol analysis to detect indirect flash loan attacks that manipulate collateral valuations rather than direct voting.
+
+#### Time-Weighted Snapshot Framework
+Building on recent research by *Wang et al.*, the framework implements time-weighted governance that:
+- **Mitigates Flash Loan Attacks**: Uses continuous snapshot mechanisms with weighted historical presence rather than point-in-time token holdings.
+- **Balances Security and Liquidity**: Implements adjustable weight functions that can shift between security-focused (older blocks weighted higher) and liquidity-focused configurations.
+- **Prevents Oracle Manipulation**: Distributes voting weights across multiple blocks to make indirect attacks economically infeasible.
+
+#### Quadratic Voting with Vote Escrow Integration
+The framework incorporates anti-collusion mechanisms based on recent research that combines:
+- **Quadratic Voting Resistance**: Implementation of voting systems where voting power increases sub-linearly with token holdings to reduce whale influence.
+- **Vote Escrow Temporal Locks**: Integration of time-locked governance tokens that require long-term commitment, preventing both flash loans and short-term manipulation.
+- **Collusion-Resistant Design**: Mathematical frameworks that make coordinated manipulation attacks economically prohibitive.
+
+### Case Study Integration
+The framework learns from documented attacks including:
+- **Compound "Humpy" Incident (2024)**: Analysis of how 499,000 COMP tokens ($25M) were used to pass controversial proposals benefiting specific whale interests.
+- **Beanstalk Flash Loan Attack (2022)**: Implementation of defenses against the $181M flash loan attack that gained majority stake through borrowed tokens.
+- **Mochi Inu Curve Attack**: Protection against sophisticated multi-protocol manipulation attacks targeting governance and liquidity simultaneously.
+
+This comprehensive DAO governance security module ensures that agentic AI systems can detect and prevent the full spectrum of governance attacks currently threatening decentralized organizations with billions in assets under management.
+
 
 ### Core Components
 
@@ -275,4 +306,5 @@ This proposal tackles a major gap in smart contract security: the lack of a full
 25. Shinn, N., Lin, Z., & Tan, C. (2023). *Reflexion: Language Agents with Verbal Reinforcement Learning*. arXiv:2303.11366. https://arxiv.org/abs/2303.11366
 26. Rahman, A., Nuhan, A., & Mozumder, B. (2025). *OpenAuditBenchmark: A Dataset for Agentic AI in Smart Contract Vulnerability Detection, Prioritization, and Patch Suggestion*. arXiv:2507.15812. https://arxiv.org/abs/2507.15812
 27. Patel, R., & Morgan, D. (2025). *Cooperative Adversarial Agents for Robust Cybersecurity in Decentralized Systems*. IEEE Transactions on Information Forensics and Security, 20(8), 1452–1468. https://doi.org/10.1109/TIFS.2025.3265012
-28. Liu, H., Chen, Z., & Yu, J. (2024). *Real-Time Smart Contract Threat Monitoring and Autonomous Incident Response on Public Blockchains*. In Proceedings of the IEEE International Conference on Blockchain and Cryptocurrency (ICBC), pp. 102–113. https://doi.org/10.1109/ICBC2024.2024.00112
+28. Nakamura, S., & Yamamoto, H. (2024). *DAO voting mechanism resistant to whale and collusion problems*. Frontiers in Blockchain, 7, 1405516. [https://doi.org/10.3389/fbloc.2024.1405516](https://doi.org/10.3389/fbloc.2024.1405516)
+29. Martinez-Rodriguez, C. (2024). *Whales, Sybil attacks and low trust: Can DAOs avoid centralization pitfalls*. Cointelegraph, March 11, 2024. [https://cointelegraph.com/news/whales-sybil-attacks-and-low-trust-can-daos-avoid-centralization-pitfalls](https://cointelegraph.com/news/whales-sybil-attacks-and-low-trust-can-daos-avoid-centralization-pitfalls)
