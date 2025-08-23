@@ -2,17 +2,42 @@ import subprocess
 import json
 from typing import List, Dict
 from .base import AbstractAdapter
-
+import tempfile
+import shutil
+import os
 class ManticoreAdapter(AbstractAdapter):
     def run(self, contract_path: str, **kwargs) -> List[Dict]:
-        cmd = [
-            "manticore", contract_path, "--no-progress", "--output", "mcore_out"
-        ]
+        workspace = kwargs.get("workspace") or tempfile.mkdtemp(prefix="mcore_")
+        cmd = ["manticore", contract_path, "--no-progress", "--output", workspace]
         try:
-            subprocess.run(cmd, capture_output=True, text=True, timeout=kwargs.get("timeout", 180))
-            return self._parse_workspace("mcore_out")
+            subprocess.run(
+                cmd, capture_output=True, text=True,
+                timeout=kwargs.get("timeout", 180), check=True
+            )
+            return self._parse_workspace(workspace)
+        except subprocess.CalledProcessError as e:
+            return [self.standardize_finding({
+                "title": "Manticore Error",
+                "description": (e.stderr or str(e)).strip(),
+                "severity": "Low",
+                "swc_id": "",
+                "line_numbers": [],
+                "confidence": "Low",
+                "tool": "Manticore"
+            })]
         except Exception as e:
-            return [{"title": "Manticore Error", "description": str(e), "severity": "Low", "swc_id": "", "line_numbers": [], "confidence": "Low", "tool": "Manticore"}]
+            return [self.standardize_finding({
+                "title": "Manticore Error",
+                "description": str(e),
+                "severity": "Low",
+                "swc_id": "",
+                "line_numbers": [],
+                "confidence": "Low",
+                "tool": "Manticore"
+            })]
+        finally:
+            if kwargs.get("cleanup", True):
+                shutil.rmtree(workspace, ignore_errors=True)
 
     def _parse_workspace(self, workspace: str) -> List[Dict]:
         # Manticore writes findings to a JSON file in the workspace directory
